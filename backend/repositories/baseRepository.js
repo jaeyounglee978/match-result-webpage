@@ -9,8 +9,14 @@ class BaseRepository {
   // Generic method to run a query
   run(query, params = []) {
     return new Promise((resolve, reject) => {
+      if (!this.db) {
+        reject(new Error('Database connection not available'));
+        return;
+      }
+      
       this.db.run(query, params, function(err) {
         if (err) {
+          console.error('Database query error:', err.message, 'Query:', query);
           reject(err);
         } else {
           resolve({ lastID: this.lastID, changes: this.changes });
