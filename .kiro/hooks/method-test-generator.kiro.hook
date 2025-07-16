@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "name": "Method Test Generator",
+  "description": "Automatically creates test code for new or modified methods, excluding repository methods which are difficult to test in local environments",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "backend/controllers/*.js",
+      "backend/services/*.js",
+      "backend/middleware/*.js",
+      "frontend/src/components/*.js",
+      "frontend/src/hooks/*.js",
+      "frontend/src/services/*.js",
+      "frontend/src/pages/**/*.js"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Analyze the modified file and identify any new or changed methods/functions. For each method found, generate appropriate test code using the project's testing framework. Exclude any repository or database-related methods that would be difficult to test locally without external dependencies. Focus on business logic, utility functions, middleware, React components, and API service methods. Create comprehensive unit tests that cover normal cases, edge cases, and error scenarios where applicable."
+  }
+}
