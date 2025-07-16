@@ -1,29 +1,29 @@
-const db = require('../database');
+const RangeService = require('../services/rangeService');
 
-exports.createRange = (req, res) => {
-  const { name, description } = req.body;
-  if (!name) {
-    return res.status(400).json({ message: 'Please provide a name for the range' });
-  }
+const rangeService = new RangeService();
 
-  const query = `INSERT INTO ranges (name, description) VALUES (?, ?)`;
-  db.run(query, [name, description], function(err) {
-    if (err) {
-        if (err.message.includes('UNIQUE constraint failed')) {
-            return res.status(409).json({ message: 'Range name already exists' });
-        }
-      return res.status(500).json({ message: 'Error creating range', error: err.message });
+exports.createRange = async (req, res) => {
+  try {
+    const { name, description } = req.body;
+    if (!name) {
+      return res.status(400).json({ message: 'Please provide a name for the range' });
     }
-    res.status(201).json({ message: 'Range created successfully', rangeId: this.lastID });
-  });
+
+    const result = await rangeService.createRange(name, description);
+    res.status(201).json(result);
+  } catch (error) {
+    if (error.message === 'Range name already exists') {
+      return res.status(409).json({ message: error.message });
+    }
+    res.status(500).json({ message: 'Error creating range', error: error.message });
+  }
 };
 
-exports.getRanges = (req, res) => {
-  const query = `SELECT * FROM ranges`;
-  db.all(query, [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error fetching ranges', error: err.message });
-    }
-    res.status(200).json(rows);
-  });
+exports.getRanges = async (req, res) => {
+  try {
+    const ranges = await rangeService.getAllRanges();
+    res.status(200).json(ranges);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching ranges', error: error.message });
+  }
 };
