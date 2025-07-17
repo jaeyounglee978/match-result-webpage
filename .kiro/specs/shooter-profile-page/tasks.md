@@ -1,12 +1,12 @@
 # Implementation Plan
 
-- [ ] 1. Set up backend API infrastructure for shooter profiles
+- [x] 1. Set up backend API infrastructure for shooter profiles
   - Create shooterController.js with basic endpoint structure
   - Create shooterService.js with data aggregation methods
   - Add shooter routes to Express router configuration
   - _Requirements: 1.1, 2.2, 3.2, 4.4, 5.6, 6.5_
 
-- [ ] 2. Implement shooter profile data retrieval endpoint
+- [x] 2. Implement shooter profile data retrieval endpoint
   - Write GET /api/shooters/:shooterName/profile endpoint
   - Implement database query to get shooter basic information
   - Add validation for shooter name parameter

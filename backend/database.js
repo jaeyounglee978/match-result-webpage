@@ -55,8 +55,10 @@ function createTables() {
       match_id INTEGER NOT NULL,
       shooter_name TEXT NOT NULL,
       division TEXT NOT NULL,
+      sport TEXT DEFAULT 'IPSC',
       score REAL NOT NULL,
       time REAL NOT NULL,
+      placement INTEGER,
       FOREIGN KEY (match_id) REFERENCES matches (id) ON DELETE CASCADE
     );
   `;

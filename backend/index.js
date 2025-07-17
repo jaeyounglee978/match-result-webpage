@@ -12,11 +12,13 @@ const authRoutes = require('./routes/auth');
 const rangeRoutes = require('./routes/ranges');
 const userRoutes = require('./routes/users');
 const matchRoutes = require('./routes/matches');
+const shooterRoutes = require('./routes/shooters');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/ranges', rangeRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/matches', matchRoutes);
+app.use('/api/shooters', shooterRoutes);
 
 
 
